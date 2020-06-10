@@ -4,6 +4,13 @@ set cpo&vim
 if exists('g:loaded_shoot')
     finish
 endif
+if !has('python3')
+	echoerr 'Shoot requires vim to be compiled with python3'
+	if has('python')
+		echoerr 'python2 won''t do, you savage'
+	endif
+	finish
+endif
 let g:loaded_shoot = 1
 
 if !exists(":TOpng")
