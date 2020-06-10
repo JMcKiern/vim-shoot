@@ -6,6 +6,10 @@ let s:plugin_path = expand('<sfile>:p:h')
 if !exists('g:shoot_install_driver')
 	let g:shoot_install_driver = v:false
 endif
+if !exists('g:shoot_zoom_factor')
+	" zoom factor of 1 is generally too low
+	let g:shoot_zoom_factor = 2
+endif
 
 function! shoot#Shoot(line1, line2)
     silent call tohtml#Convert2HTML(a:line1, a:line2)
@@ -24,7 +28,8 @@ sys.path.append(os.path.abspath(plugin_path + '/../3rdparty'))
 
 import shoot
 htmlString = vim.eval("s:bufAsStr")
-shoot.Html2Png(htmlString)
+zoomFactor = int(vim.eval("g:shoot_zoom_factor"))
+shoot.Html2Png(htmlString, zoomFactor)
 
 endpython
 endfunction
