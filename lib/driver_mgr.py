@@ -138,7 +138,7 @@ def CreateDriver(path: str):
     elif driver_name == "geckodriver":
         options = webdriver.FirefoxOptions()
         options.headless = True
-        log_dir = os.path.abspath(os.path.dirname(path) + '/../log')
+        log_dir = os.path.abspath(os.path.dirname(__file__) + '/../log')
         if not os.path.exists(log_dir):
             os.mkdir(log_dir)
         log_path = log_dir + '/geckodriver.log'
