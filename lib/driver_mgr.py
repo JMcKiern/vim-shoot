@@ -52,7 +52,12 @@ def GetSupportedDriverNamesOrdered():
         preferred_driver = vim.eval('g:shoot_preferred_driver')
         if preferred_driver not in driver_names:
             raise ValueError("Preferred driver must be one of " + driver_names)
-        driver_names.insert(0,
+        if (bool(int(vim.eval('exists("g:shoot_force_preferred_driver")'))) and
+                bool(int(vim.eval('g:shoot_force_preferred_driver')))):
+            driver_names = [preferred_driver]
+        else:
+            # Move to front
+            driver_names.insert(0,
                 driver_names.pop(driver_names.index(preferred_driver)))
 
     return driver_names
