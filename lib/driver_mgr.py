@@ -129,7 +129,7 @@ def CreateDriver(path: str):
     if driver_name == "chromedriver":
         options = webdriver.ChromeOptions()
         options.headless = True
-        driver = webdriver.Chrome(path=path, options=options)
+        driver = webdriver.Chrome(executable_path=path, options=options)
     elif driver_name == "geckodriver":
         options = webdriver.FirefoxOptions()
         options.headless = True
