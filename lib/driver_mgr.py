@@ -25,6 +25,26 @@ def DownloadAndExtract(url: str):
     else:
         raise ValueError("Unknown filetype: " + url.split('/')[-1])
 
+def GetPlatform(driver_name: str):
+    if driver_name == 'chromedriver':
+        if sys.platform.startswith('linux'):
+            return 'linux64'
+        elif sys.platform.startswith('win32'):
+            return 'win32'
+        elif sys.platform.startswith('darwin'):
+            return 'mac64'
+    elif driver_name == 'geckodriver':
+        if sys.platform.startswith('linux'):
+            return 'linux64'
+        elif sys.platform.startswith('win32'):
+            return 'win32'
+        elif sys.platform.startswith('darwin'):
+            return 'macos'
+    else:
+        raise RuntimeError("Unknown driver: " + driver_name)
+    raise RuntimeError("Unknown platform: " + sys.platform)
+
+
 def GetSupportedDriverNamesOrdered():
     driver_names = ['chromedriver', 'geckodriver']
 
@@ -53,14 +73,7 @@ def InstallGeckodriver():
     if resp.status_code != requests.codes.ok:
         raise RuntimeError("Could not reach " + resp.url)
 
-    if sys.platform.startswith('linux'):
-        plt = 'linux64'
-    elif sys.platform.startswith('win32'):
-        plt = 'win32'
-    elif sys.platform.startswith('darwin'):
-        plt = 'macos'
-    else:
-        raise RuntimeError("Unknown platform: " + sys.platform)
+    plt = GetPlatform('geckodriver')
 
     for asset in resp.json():
         if plt in asset['name']:
@@ -79,14 +92,8 @@ def InstallChromedriver():
         raise RuntimeError("Could not reach " + resp.url)
     rel = resp.text
 
-    if sys.platform.startswith('linux'):
-        plt = 'linux64'
-    elif sys.platform.startswith('win32'):
-        plt = 'win32'
-    elif sys.platform.startswith('darwin'):
-        plt = 'mac64'
-    else:
-        raise RuntimeError("Unknown platform: " + sys.platform)
+
+    plt = GetPlatform('chromedriver')
 
     dl_url = ('https://chromedriver.storage.googleapis.com/' + rel +
             '/chromedriver_' + plt + '.zip')
