@@ -177,9 +177,9 @@ def GetDriver():
     if driver is not None:
         return driver
 
-    # driver = GetDriverOnPath()
-    # if driver is not None:
-    #     return driver
+    driver = GetDriverOnPath()
+    if driver is not None:
+        return driver
 
     if vim.eval("g:shoot_install_driver"):
         driver = InstallDriver()
