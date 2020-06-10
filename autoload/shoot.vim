@@ -19,8 +19,8 @@ import sys
 import vim
 
 plugin_path = vim.eval("s:plugin_path")
-python_module_path = os.path.abspath(plugin_path + '/../lib')
-sys.path.append(python_module_path)
+sys.path.append(os.path.abspath(plugin_path + '/../lib'))
+sys.path.append(os.path.abspath(plugin_path + '/../3rdparty'))
 
 import shoot
 htmlString = vim.eval("s:bufAsStr")
