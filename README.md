@@ -17,7 +17,7 @@ If using vim-plug, add this line to your .vimrc
 Plug 'jmckiern/vim-shoot'
 ```
 
-Additionally, you **must** install a WebDriver for Shoot to work.
+Additionally, Shoot requires a WebDriver to work.
 
 ### WebDriver
 
