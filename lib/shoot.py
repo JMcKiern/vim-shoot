@@ -26,10 +26,14 @@ def Html2Png(htmlString: str, zoomFactor):
 
         driver = driver_mgr.GetDriver()
         driver.get('file://' + f.name)
-        required_width = driver.execute_script('return document.body.scrollWidth')
-        required_height = driver.execute_script('return document.body.scrollHeight')
-        driver.set_window_size(required_width * zoomFactor + 1 ,
-                               required_height * zoomFactor + 1)
+        requiredWidth = driver.execute_script('return document.body.scrollWidth')
+        requiredHeight = driver.execute_script('return document.body.scrollHeight')
+
+        paddingWidth = driver.execute_script('return (window.outerWidth - window.innerWidth)')
+        paddingHeight = driver.execute_script('return (window.outerHeight - window.innerHeight)')
+
+        driver.set_window_size(requiredWidth * zoomFactor + paddingWidth + 1,
+                               requiredHeight * zoomFactor + paddingHeight + 1)
 
         filename = GenFilename()
         driver.save_screenshot(filename)
