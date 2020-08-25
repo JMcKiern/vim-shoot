@@ -2,4 +2,6 @@
 import subprocess
 import sys
 
-subprocess.check_call([sys.executable, *('-m pip install selenium requests --ignore-installed -t 3rdparty/'.split(' '))])
+dependencies = ['selenium', 'requests']
+
+subprocess.check_call([sys.executable, *(' '.join(['-m pip install', *dependencies, '--ignore-installed -t 3rdparty/']).split(' '))])
