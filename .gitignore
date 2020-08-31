@@ -1,3 +1,5 @@
-/bin/
+3rdparty/
+bin/
 log/
 __pycache__/
+
