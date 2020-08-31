@@ -44,5 +44,5 @@ project.
 
 ## Chosen Method
 
-Method 1. is currently being used.
+Method 3. is currently being used.
 I am open to suggestions.
