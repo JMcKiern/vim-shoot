@@ -16,7 +16,7 @@ function! shoot#Shoot(line1, line2)
     let l:bufnr = bufnr()
     let s:bufAsStr = join(getbufline(l:bufnr, 1, '$'), "\n")
     execute l:bufnr.'bd!'
-python3 << endpython
+python3 << ENDPYTHON
 
 import os
 import sys
@@ -31,7 +31,7 @@ htmlString = vim.eval("s:bufAsStr")
 zoomFactor = int(vim.eval("g:shoot_zoom_factor"))
 shoot.Html2Png(htmlString, zoomFactor)
 
-endpython
+ENDPYTHON
 endfunction
 
 let &cpo = s:save_cpo
