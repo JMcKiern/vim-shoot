@@ -41,14 +41,14 @@ Plug 'jmckiern/vim-shoot', { 'do': '\"./install.py\"' }
 
 And then outside the plugin list add this:
 ```
+" This lets Shoot know that it's ok to install a WebDriver.
+" It will be installed in the plugin directory.
+let g:shoot_install_driver = v:true
+
 " This determines which WebDriver to use. Allowed options are 'chromedriver' or 'geckodriver'.
 " Use 'geckodriver' if you use Firefox.
 " Use 'chromedriver' if you Chrome/Chromium.
 let g:shoot_preferred_driver = 'chromedriver'
-
-" This lets Shoot know that it's ok to install a WebDriver.
-" It will be installed in the plugin directory.
-let g:shoot_install_driver = v:true
 ```
 
 With these settings, vim will install the python dependencies (in to the plugin
