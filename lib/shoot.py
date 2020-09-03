@@ -1,8 +1,8 @@
 import re
+import os.path
 import tempfile
 import datetime
 import driver_mgr
-
 
 def GenFilename():
     return ('shoot_' + datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S') +
@@ -15,7 +15,7 @@ def AddToCss(htmlString, pattern, toAdd):
         raise ValueError("Could not find css with " + pattern)
     return htmlString[:m.end()-1] + toAdd + htmlString[m.end()-1:]
 
-def Html2Png(htmlString: str, zoomFactor):
+def Html2Png(htmlString: str, zoomFactor, save_path: str):
     htmlString = AddToCss(htmlString, "pre {.*?}", "margin: 0; ")
     bodyCss = "margin: 0; padding: 3px; transform: scale(" + str(zoomFactor) + "); transform-origin: top left; display: inline-block; "
     htmlString = AddToCss(htmlString, "body {.*?}", bodyCss)
@@ -36,6 +36,7 @@ def Html2Png(htmlString: str, zoomFactor):
                                requiredHeight * zoomFactor + paddingHeight + 1)
 
         filename = GenFilename()
-        driver.save_screenshot(filename)
-        print('Saved screenshot as ' + filename)
+        path = os.path.join(save_path, filename)
+        driver.save_screenshot(path)
+        print('Saved screenshot at ' + path)
         driver.quit()

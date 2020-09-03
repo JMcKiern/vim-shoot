@@ -29,7 +29,8 @@ sys.path.append(os.path.abspath(plugin_path + '/../3rdparty'))
 import shoot
 htmlString = vim.eval("s:bufAsStr")
 zoomFactor = int(vim.eval("g:shoot_zoom_factor"))
-shoot.Html2Png(htmlString, zoomFactor)
+save_path = vim.eval("getcwd()")
+shoot.Html2Png(htmlString, zoomFactor, save_path)
 
 ENDPYTHON
 endfunction
