@@ -36,7 +36,7 @@ There are 3 components to installing Shoot:
 
 Add the following to your vim-plug plugin list in your .vimrc:
 ```
-Plug 'jmckiern/vim-shoot', { 'do': './install.py' }
+Plug 'jmckiern/vim-shoot', { 'do': '\"./install.py\"' }
 ```
 
 And then outside the plugin list add this:
