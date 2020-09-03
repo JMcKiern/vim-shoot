@@ -22,8 +22,8 @@ The image will be saved in vim's current working directory.
 
 ### Requirements
 
-- Vim compiled with python3 support (check this with `:echo has('python3')`
-- Chrome or Firefox installed (a browser based on either of these should work)
+- Vim compiled with python3 support (check this with `:echo has('python3')`)
+- Chrome or Firefox installed (a browser based on either of these should work too)
 
 ### Plugin Install
 
