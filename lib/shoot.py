@@ -1,11 +1,16 @@
 import re
+import os
 import os.path
 import tempfile
 import datetime
 import driver_mgr
 
 def GenFilename():
-    return ('shoot_' + datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S') +
+    if os.name == 'nt':
+        datetime_format = '%Y-%m-%d_%H%M%S'
+    else:
+        datetime_format = '%Y-%m-%d_%H:%M:%S'
+    return ('shoot_' + datetime.datetime.now().strftime(datetime_format) +
             '.png')
 
 def AddToCss(htmlString, pattern, toAdd):
@@ -20,9 +25,11 @@ def Html2Png(htmlString: str, zoomFactor, save_path: str):
     bodyCss = "margin: 0; padding: 3px; transform: scale(" + str(zoomFactor) + "); transform-origin: top left; display: inline-block; "
     htmlString = AddToCss(htmlString, "body {.*?}", bodyCss)
 
-    with tempfile.NamedTemporaryFile('w+', suffix='.html') as f:
+    f = tempfile.NamedTemporaryFile('w+', suffix='.html', delete=False)
+    try:
         f.write(htmlString)
         f.seek(0)
+        f.close()
 
         driver = driver_mgr.GetDriver()
         driver.get('file://' + f.name)
@@ -40,3 +47,5 @@ def Html2Png(htmlString: str, zoomFactor, save_path: str):
         driver.save_screenshot(path)
         print('Saved screenshot at ' + path)
         driver.quit()
+    finally:
+        os.remove(f.name)
