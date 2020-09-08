@@ -20,7 +20,7 @@ def AddToCss(htmlString, pattern, toAdd):
         raise ValueError("Could not find css with " + pattern)
     return htmlString[:m.end()-1] + toAdd + htmlString[m.end()-1:]
 
-def Html2Png(htmlString: str, zoomFactor, save_path: str):
+def Html2Png(htmlString: str, zoomFactor, save_path: str, browser_binary: str):
     htmlString = AddToCss(htmlString, "pre {.*?}", "margin: 0; ")
     bodyCss = "margin: 0; padding: 3px; transform: scale(" + str(zoomFactor) + "); transform-origin: top left; display: inline-block; "
     htmlString = AddToCss(htmlString, "body {.*?}", bodyCss)
@@ -31,7 +31,7 @@ def Html2Png(htmlString: str, zoomFactor, save_path: str):
         f.seek(0)
         f.close()
 
-        driver = driver_mgr.GetDriver()
+        driver = driver_mgr.GetDriver(browser_binary)
         driver.get('file://' + f.name)
         requiredWidth = driver.execute_script('return document.body.scrollWidth')
         requiredHeight = driver.execute_script('return document.body.scrollHeight')

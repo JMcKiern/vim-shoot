@@ -11,7 +11,7 @@ def GetLocalDriverDir():
     return os.path.abspath(os.path.dirname(os.path.realpath(__file__)) +
             '/../bin')
 
-def CreateDriver(path: str):
+def CreateDriver(path: str, browser_binary: str):
     if not os.path.exists(path):
         return None
 
@@ -22,11 +22,13 @@ def CreateDriver(path: str):
     if driver_name == "chromedriver":
         options = webdriver.ChromeOptions()
         options.headless = True
+        options.binary_location = browser_binary
         driver = webdriver.Chrome(executable_path=path, options=options)
     elif driver_name == "geckodriver":
         options = webdriver.FirefoxOptions()
         options.headless = True
         options.accept_insecure_certs = False
+        options.binary_location = browser_binary
         log_dir = os.path.abspath(os.path.dirname(__file__) + '/../log')
         if not os.path.exists(log_dir):
             os.mkdir(log_dir)
@@ -38,7 +40,7 @@ def CreateDriver(path: str):
 
     return driver
 
-def GetDriverLocal():
+def GetDriverLocal(browser_binary: str):
     driver_names = GetSupportedDriverNames()
 
     for driver_name in driver_names:
@@ -51,7 +53,7 @@ def GetDriverLocal():
         return None
     os.chmod(path, stat.S_IXUSR)
 
-    return CreateDriver(path)
+    return CreateDriver(path, browser_binary)
 
 def GetDriverOnPath():
     driver_names = GetSupportedDriverNames()
@@ -65,8 +67,8 @@ def GetDriverOnPath():
 
     return CreateDriver(path)
 
-def GetDriver():
-    driver = GetDriverLocal()
+def GetDriver(browser_binary: str):
+    driver = GetDriverLocal(browser_binary)
     if driver is not None:
         return driver
 
