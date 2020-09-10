@@ -30,7 +30,8 @@ import shoot
 htmlString = vim.eval("s:bufAsStr")
 zoomFactor = int(vim.eval("g:shoot_zoom_factor"))
 save_path = vim.eval("getcwd()")
-shoot.Html2Png(htmlString, zoomFactor, save_path)
+browser_binary = vim.eval('g:shoot_browser_binary') if bool(int(vim.eval('exists("g:shoot_browser_binary")'))) else None
+shoot.Html2Png(htmlString, zoomFactor, save_path, browser_binary)
 
 ENDPYTHON
 endfunction
