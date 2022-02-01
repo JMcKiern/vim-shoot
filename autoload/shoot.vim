@@ -10,7 +10,6 @@ if !exists('g:shoot_zoom_factor')
 	" zoom factor of 1 is generally too low
 	let g:shoot_zoom_factor = 2
 endif
-let g:shoot_save_path = get(g:, 'shoot_save_path', vim.eval("get"))
 if !exists('g:shoot_save_path')
 	" save path
 	let g:shoot_save_path = getcwd()
