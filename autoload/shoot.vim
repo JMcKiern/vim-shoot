@@ -10,6 +10,10 @@ if !exists('g:shoot_zoom_factor')
 	" zoom factor of 1 is generally too low
 	let g:shoot_zoom_factor = 2
 endif
+if !exists('g:shoot_save_path')
+	" save path
+	let g:shoot_save_path = vim.eval("getcwd()")
+endif
 
 function! shoot#Shoot(line1, line2)
     silent call tohtml#Convert2HTML(a:line1, a:line2)
@@ -29,7 +33,7 @@ sys.path.append(os.path.abspath(plugin_path + '/../3rdparty'))
 import shoot
 htmlString = vim.eval("s:bufAsStr")
 zoomFactor = int(vim.eval("g:shoot_zoom_factor"))
-save_path = vim.eval("getcwd()")
+save_path = vim.eval("g:shoot_save_path")
 browser_binary = vim.eval('g:shoot_browser_binary') if bool(int(vim.eval('exists("g:shoot_browser_binary")'))) else None
 shoot.Html2Png(htmlString, zoomFactor, save_path, browser_binary)
 
