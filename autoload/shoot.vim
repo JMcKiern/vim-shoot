@@ -11,6 +11,10 @@ if !exists('g:shoot_zoom_factor')
 	let g:shoot_zoom_factor = 2
 endif
 let g:shoot_save_path = get(g:, 'shoot_save_path', vim.eval("get"))
+if !exists('g:shoot_save_path')
+	" save path
+	let g:shoot_save_path = getcwd()
+endif
 
 function! shoot#Shoot(line1, line2)
     silent call tohtml#Convert2HTML(a:line1, a:line2)
