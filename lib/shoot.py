@@ -43,6 +43,8 @@ def Html2Png(htmlString: str, zoomFactor, save_path: str, browser_binary: str):
                                requiredHeight * zoomFactor + paddingHeight + 1)
 
         filename = GenFilename()
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
         path = os.path.join(save_path, filename)
         driver.save_screenshot(path)
         print('Saved screenshot at ' + path)
