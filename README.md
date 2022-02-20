@@ -20,6 +20,7 @@ The image will be saved in vim's working directory.
 
 - `g:shoot_zoom_factor` - Used to zoom image (default: 2)
 - `g:shoot_browser_binary` - Specify the web browser binary file in the case of a non-standard installation
+- `g:shoot_save_path` - Specify the directory to save the images in
 
 ## How to Install
 
